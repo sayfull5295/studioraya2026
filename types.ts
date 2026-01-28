@@ -18,8 +18,8 @@ export interface TimeSlot {
 }
 
 export type BookingStatus = 'confirmed' | 'arrived' | 'photoshoot_done' | 'editing' | 'completed';
-export type PaymentStatus = 'pending' | 'awaiting_verification' | 'paid';
-export type PaymentMethod = 'cash' | 'transfer' | 'qr' | 'online_card';
+export type PaymentStatus = 'pending' | 'awaiting_verification' | 'paid' | 'failed';
+export type PaymentMethod = 'cash' | 'transfer' | 'qr' | 'online_gateway';
 
 export interface Message {
   id: string;
@@ -29,15 +29,6 @@ export interface Message {
   timestamp: string;
   isRead: boolean;
   type: 'system' | 'email';
-}
-
-export interface PrintOrder {
-  id: string;
-  photoNumber: string;
-  size: string;
-  orientation: 'portrait' | 'landscape';
-  quantity: number;
-  unitPrice: number;
 }
 
 export interface Booking {
@@ -52,14 +43,9 @@ export interface Booking {
   paymentStatus: PaymentStatus;
   paymentMethod?: PaymentMethod;
   price: number;
-  discountApplied?: number;
-  promoCode?: string;
   conceptId: string;
-  googlePhotosLink?: string;
-  internalNotes?: string;
-  printOrders?: PrintOrder[];
-  receiptUrl?: string; // Original URL
-  receiptBase64?: string; // Actual binary data for "alive" feel
+  receiptBase64?: string;
+  transactionId?: string; // For gateway payments
 }
 
 export interface Promo {

@@ -9,7 +9,6 @@ const MESSAGES_KEY = 'raya_studio_messages';
 
 const statusChannel = new BroadcastChannel('raya_studio_status');
 
-// Helper to simulate network latency for a "real" feel
 const delay = (ms: number = 500) => new Promise(res => setTimeout(res, ms));
 
 export const getStoredUsers = async (): Promise<User[]> => {
@@ -39,7 +38,7 @@ export const saveUser = async (user: User) => {
 };
 
 export const saveBooking = async (booking: Booking) => {
-  await delay(1000); // Simulate upload time
+  await delay(800);
   const bookings = await getStoredBookings();
   bookings.push(booking);
   localStorage.setItem(BOOKINGS_KEY, JSON.stringify(bookings));
@@ -66,8 +65,7 @@ export const saveMessage = async (msg: Message) => {
 export const validatePromoCode = async (code: string, themeId: string): Promise<Promo | null> => {
   const promos = JSON.parse(localStorage.getItem(PROMOS_KEY) || '[]');
   const found = promos.find((p: Promo) => p.code.toUpperCase() === code.toUpperCase() && p.isActive);
-  if (!found) return null;
-  return found;
+  return found || null;
 };
 
 export const generateSlots = async (date: string, conceptId: string): Promise<TimeSlot[]> => {
