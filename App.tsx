@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
@@ -8,13 +7,13 @@ import Auth from './pages/Auth';
 import Dashboard from './pages/Dashboard';
 import Gallery from './pages/Gallery';
 import AdminDashboard from './pages/AdminDashboard';
+import PaymentGateway from './pages/PaymentGateway';
 import IntroAnimation from './components/IntroAnimation';
 
 const App: React.FC = () => {
   const [showIntro, setShowIntro] = useState(true);
 
   useEffect(() => {
-    // Check if intro has already been shown this session to avoid annoying returning users
     const hasSeenIntro = sessionStorage.getItem('raya_intro_shown');
     if (hasSeenIntro) {
       setShowIntro(false);
@@ -41,6 +40,7 @@ const App: React.FC = () => {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/payment-gateway" element={<PaymentGateway />} />
             </Routes>
           </main>
           
